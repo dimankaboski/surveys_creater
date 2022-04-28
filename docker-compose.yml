@@ -1,0 +1,40 @@
+version: '3'
+
+
+services:
+    postgres_db:
+        image: 'postgres'
+        environment:
+            - POSTGRES_USER=${POSTGRES_DB_USER}
+            - POSTGRES_PASSWORD=${POSTGRES_DB_PASSWORD}
+            - POSTGRES_DB=${POSTGRES_DB_NAME}
+        ports:
+            - '5432:5432'
+    web:
+        build:
+            context: ./
+            dockerfile: Dockerfile
+        volumes:
+            - ./:/core
+            - ./static/:/static
+            - ./media/:/media
+        depends_on:
+            - postgres_db
+        ports:
+            - "8001:8001"
+        env_file:
+            - '.env'
+    nginx:
+        build:
+            context: ./docker/nginx
+            dockerfile: Dockerfile
+        volumes:
+            - ./static/:/static
+            - ./media/:/media
+        depends_on:
+            - web
+            - postgres_db
+        ports:
+            - '80:80'
+        env_file:
+            - '.env'
