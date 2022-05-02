@@ -1,13 +1,28 @@
+from secrets import choice
 from django.db import models
-
+import uuid
 
 class Survey(models.Model):
     """
     Шаблон опросника, имеет поля: название, описание, кем создан, когда создан, время обновления
     Связан один ко многим к Element
     """
+    class ACCESS:
+        """
+        Разрешение на прохождение опроса
+        """
+        LINK = 'link'
+        OPENED = 'opened'
+
+        LIST = (
+            (LINK, 'Только по ссылке'),
+            (OPENED, 'Открыт всем')
+        )
+    
     name = models.CharField('Название', max_length=100, blank=False)
     description = models.TextField('Описание', blank=True)
+    access = models.CharField('Разрешение', max_length=20, choices=ACCESS.LIST, default=ACCESS.LINK)
+    uuid = models.UUIDField(primary_key=False, default=uuid.uuid4, editable=False)
     created_by = models.ForeignKey('accounts.User', on_delete=models.SET_NULL, null=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Created at', null=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -39,8 +54,9 @@ class Element(models.Model):
             (TEXT, 'Текст с абзацами'),
             (RANGE, 'Шкала'),
         )
-    
-    type = models.CharField('Тип элемента', max_length=20, blank=False)
+
+    type = models.CharField('Тип элемента', choices=TYPE.LIST, max_length=20, blank=False)
+    name = models.CharField('Вопрос', max_length=150, blank=False)
     text = models.TextField('Текст', blank=True, help_text='Если варианты спика, то разделение идет с новой строки')
     range_from = models.IntegerField(default=1, verbose_name='Шкала от')
     range_to = models.IntegerField(default=10, verbose_name='Шкала до')

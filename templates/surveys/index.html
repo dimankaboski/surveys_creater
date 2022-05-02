@@ -3,4 +3,10 @@
 {% block content %}
 <h1>Index page</h1>
 <h4>Hello, {{request.user.email}}</h4>
+<a href="{% url 'surveys:create_survey' %}">Создать опрос</a>
+<h4>Ваши опросы</h4>
+{% for survey in surveys %}
+<h5>Опрос #{{survey.id}}</h5>
+<p>{{survey.name}}</p>
+{% endfor %}
 {% endblock %}

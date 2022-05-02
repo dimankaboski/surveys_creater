@@ -1,0 +1,11 @@
+{% extends 'surveys/base.html' %}
+
+{% block content %}
+<h1>Опрос #{{object.id}}</h1>
+<h4>Hello, {{request.user.email}}</h4>
+<p>{{object.name}}</p>
+<p>{{object.description}}</p>
+{% for prop in object.element_set.all %}
+    {{prop.name}} <br>
+{% endfor %}
+{% endblock %}
