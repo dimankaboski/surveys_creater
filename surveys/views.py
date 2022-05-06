@@ -33,21 +33,20 @@ class CreateSurvey(TemplateView):
             element = Element.objects.create(
                 type=data.get(f'el_type_{prop}'),
                 name=data.get(f'el_name_{prop}'),
+                text='',
                 survey=survey,
             )
             if element.type == Element.TYPE.ONE_IN_MANY:
                 element.text = data.get(f'el_text_{prop}')
             elif element.type == Element.TYPE.MANY_IN_MANY:
                 element.text = data.get(f'el_text_{prop}')
-            elif element.type == Element.TYPE.TEXT:
-                element.text = data.get(f'el_text_{prop}')
-            elif element.type == Element.TYPE.STRING:
-                element.text = data.get(f'el_text_{prop}')
             elif element.type == Element.TYPE.RANGE:
                 element.range_from = data.get(f'el_range_min_{prop}')
                 element.range_to = data.get(f'el_range_max_{prop}')
-            if data.get(f'el_required_{prop}'):
+            if data.get(f'el_required_{prop}') == '1':
                 element.required = True
+            else:
+                element.required = False
             element.save()
             prop += 1
         
