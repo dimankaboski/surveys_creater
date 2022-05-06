@@ -38,9 +38,12 @@ def get_activities(request):
     return JsonResponse(resp, safe=False)
 
 def get_header_description(request):
-    resp = []
     members = HeaderDescription.objects.filter().last()
-    resp.append(members.text.split('$$'))
+    resp = {
+        'header': members.header,
+        'subheader': members.subheader,
+        'text': members.text.split('$$')
+    }
     return JsonResponse(resp, safe=False)
 
 def get_cases(request):
@@ -53,4 +56,11 @@ def get_cases(request):
             'tags': member.tags.split('\r\n'),
         }
         resp.append(json)
+    return JsonResponse(resp, safe=False)
+
+def get_header_reasons(request):
+    resp = []
+    members = HeaderReasons.objects.all()
+    for member in members:
+        resp.append(member.text)
     return JsonResponse(resp, safe=False)

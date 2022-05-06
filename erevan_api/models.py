@@ -10,6 +10,11 @@ class TeamMember(models.Model):
     social_networks = models.TextField()
 
 class HeaderDescription(models.Model):
+    header = models.TextField()
+    subheader = models.TextField()
+    text = models.TextField()
+
+class HeaderReasons(models.Model):
     text = models.TextField()
 
 class Activity(models.Model):

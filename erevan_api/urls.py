@@ -10,4 +10,5 @@ urlpatterns = [
     path('get_header_description', get_header_description, name='get_header_description'),
     path('get_activities', get_activities, name='get_activities'),
     path('get_cases', get_cases, name='get_cases'),
+    path('get_header_reasons', get_header_reasons, name='get_header_reasons'),
 ]
