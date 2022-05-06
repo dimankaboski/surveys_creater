@@ -20,6 +20,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',
     'surveys',
+    'erevan_api',
 ]
 
 MIDDLEWARE = [
