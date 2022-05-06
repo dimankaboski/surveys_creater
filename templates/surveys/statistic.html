@@ -1,0 +1,15 @@
+{% extends 'surveys/base.html' %}
+
+{% block content %}
+<h1>Опрос #{{object.id}}</h1>
+<h4>Hello, {{request.user.email}}</h4>
+<p>{{object.name}}</p>
+<p>{{object.description}}</p>
+
+{% for filled in object.filledsurvey_set.all %}
+#{{forloop.counter}} <br>
+{{filled.get_user}} <br>
+{{filled.created_at}} <br>
+<a href="{% url 'surveys:passed_survey' filled.id %}">Посмотреть</a>
+{% endfor %}
+{% endblock %}

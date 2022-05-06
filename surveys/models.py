@@ -64,6 +64,11 @@ class Element(models.Model):
     survey = models.ForeignKey(Survey, on_delete=models.CASCADE, verbose_name='Опрос')
     file = models.FileField(upload_to='survey_files', null=True, blank=True, verbose_name='Файл')
 
+    def get_text_values(self):
+        return self.text.split('\n')
+
+    def get_range_iter(self):
+        return [i for i in range(self.range_from, self.range_to)]
 
 class FilledSurvey(models.Model):
     """
@@ -74,6 +79,11 @@ class FilledSurvey(models.Model):
     user = models.ForeignKey('accounts.User', on_delete=models.SET_NULL, null=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Created at', null=True)
 
+    def get_user(self):
+        if self.user:
+            return self.user
+        else:
+            return 'Аноним'
 
 class ElementValue(models.Model):
     """

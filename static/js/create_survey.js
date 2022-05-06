@@ -14,6 +14,8 @@ $('#add_element').on('click', function(){
             <option value="range">Шкала</option>
         </select>
         <textarea name="el_text_${el_id}" id="" cols="70" rows="5"></textarea>
+        <label for="">Обязательное поле</label>
+        <input type="checkbox" name="el_required_${el_id}" value="1">
     </div>
     `
     $('.elements').append(html);
@@ -34,6 +36,8 @@ function set_one_in_list_element(id, element, name) {
                 <option value="range">Шкала</option>
             </select>
             <textarea name="el_text_${id}" id="" cols="70" rows="5"></textarea>
+            <label for="">Обязательное поле</label>
+            <input type="checkbox" name="el_required_${id}" value="1">
         </div>
     `
     $(element).html(html);
@@ -53,6 +57,8 @@ function set_many_in_list_element(id, element, name) {
                 <option value="range">Шкала</option>
             </select>
             <textarea name="el_text_${id}" id="" cols="70" rows="5"></textarea>
+            <label for="">Обязательное поле</label>
+            <input type="checkbox" name="el_required_${id}" value="1">
         </div>
     `
     $(element).html(html);
@@ -70,7 +76,8 @@ function set_string_element(id, element, name) {
                 <option value="textarea">Текст с абзацами</option>
                 <option value="range">Шкала</option>
             </select>
-            <input type="text" name="el_text_${id}" id="">
+            <label for="">Обязательное поле</label>
+            <input type="checkbox" name="el_required_${id}" value="1">
         </div>
     `
     $(element).html(html);
@@ -88,7 +95,8 @@ function set_textarea_element(id, element, name) {
                 <option value="textarea" selected>Текст с абзацами</option>
                 <option value="range">Шкала</option>
             </select>
-            <textarea name="el_text_${id}" id="" cols="70" rows="5"></textarea>
+            <label for="">Обязательное поле</label>
+            <input type="checkbox" name="el_required_${id}" value="1">
         </div>
     `
     $(element).html(html);
@@ -106,8 +114,23 @@ function set_range_element(id, element, name) {
                 <option value="textarea">Текст с абзацами</option>
                 <option value="range" selected>Шкала</option>
             </select>
-            <input type="number" name="el_range_min_${id}" value="1" min="1" max="1">
-            <input type="number" name="el_range_max_${id}" value="2" min="2" max="10">
+            <select name="el_range_min_${id}">
+                <option value="0" selected>0</option>
+                <option value="1">1</option>
+            </select>
+            <select name="el_range_max_${id}">
+                <option value="2" selected>2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+            <label for="">Обязательное поле</label>
+            <input type="checkbox" name="el_required_${id}" value="1">
         </div>
     `
     $(element).html(html);

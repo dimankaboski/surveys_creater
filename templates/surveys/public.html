@@ -5,7 +5,59 @@
 <h4>Hello, {{request.user.email}}</h4>
 <p>{{object.name}}</p>
 <p>{{object.description}}</p>
-{% for prop in object.element_set.all %}
-    {{prop.name}} <br>
-{% endfor %}
+<form action="" method="post" id="pass_survey">
+    {% csrf_token %}
+    {% for prop in object.element_set.all %}
+    <b>{{prop.name}} </b> {% if prop.required %}<span style="color: red;">Обязательное поле</span>{% endif %} <br>
+    {% if prop.type == 'one_in_list' %}
+    
+    {% for val in prop.get_text_values %}
+    <label for="">{{val}}</label>
+    <input type="radio" name="prop_{{prop.id}}" value="{{val}}" required>
+    {% endfor %}
+    <br>
+    {% elif prop.type == 'many_in_list' %}
+    <div class="checkbox-group required">
+        {% for val in prop.get_text_values %}
+        <label for="">{{val}}</label>
+        <input type="checkbox" name="prop_{{prop.id}}" value="{{val}}">
+
+        {% endfor %}
+    </div>
+    <br>
+    {% elif prop.type == 'string' %}
+    <label for="">{{val}}</label>
+    <input type="text" name="prop_{{prop.id}}" value="" required>
+    <br>
+    {% elif prop.type == 'textarea' %}
+    <label for="">{{val}}</label>
+    <textarea cols="60" rows="3" name="prop_{{prop.id}}" required></textarea>
+    <br>
+    {% elif prop.type == 'range' %}
+    <label for="">{{val}}</label>
+    {% for val in prop.get_range_iter %}
+    <label for="">{{val}}</label>
+    <input type="radio" name="prop_{{prop.id}}" value="{{val}}" required>
+    {% endfor %}
+    <br>
+    {% endif %}
+    {% endfor %}
+    <button type="submit">Отправить</button>
+</form>
+
+{% endblock %}
+
+{% block scripts %}
+<!-- <script>
+    $('#pass_survey').on('submit', function(){
+        if ($('div.checkbox-group.required :checkbox:checked').length > 0) {
+            return true
+        }
+        else {
+            alert('заполните все важные поля')
+            return false
+        }
+    })
+    
+</script> -->
 {% endblock %}

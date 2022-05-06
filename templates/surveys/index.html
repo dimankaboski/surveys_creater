@@ -8,5 +8,7 @@
 {% for survey in surveys %}
 <h5>Опрос #{{survey.id}}</h5>
 <p>{{survey.name}}</p>
+<p>Пройти по ссылке: <a href="{% url 'surveys:survey_passing_by_url' survey.uuid %}">Тык</a> </p>
+<p>Статистика: <a href="{% url 'surveys:survey_statistic' survey.pk %}">Тут</a> </p>
 {% endfor %}
 {% endblock %}
