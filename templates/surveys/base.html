@@ -5,12 +5,30 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/icons.css' %}">
+    <link rel="stylesheet" href="{% static 'css/chosen.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <title>Alya google forms</title>
 </head>
 <body>
-    {% block content %}
+    <div class="navigation">
+        <div class="container">
+            <div class="navigation__wrapper">
+                <a href="/" class="logo">Surveys creator</a>
+                {% if request.user.is_authenticated %}
+                    <a href="#" class="logout"><i class="icon-log-out"></i> Выйти</a>
+                {% else %}
+                    <a href="#" class="logout"><i class="icon-log-in"></i> Войти</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 
-    {% endblock %}
+    <div class="content">
+        {% block content %}
+        
+        {% endblock %}
+    </div>
 
     <script src="{% static 'js/jquery.min.js' %}"></script>
     {% block scripts %}

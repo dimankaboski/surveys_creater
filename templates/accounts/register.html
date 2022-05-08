@@ -1,7 +1,11 @@
 {% extends 'surveys/base.html' %}
 
 {% block content %}
-<h1>Register</h1>
+<div class="section">
+    <div class="container">
+        <h1>Регистрация</h1>
+    </div>
+</div>
 <form action="" method="post">
     <div class="container content-container container_auth">
         {% if form.errors %}
@@ -15,41 +19,38 @@
         {% endif %}
         <form action="" method="post" class="form form_auth">
             {% csrf_token %}
-            <div class="form__header">Регистрация</div>
-            <div class="input-row">
-                <div class="input-group">
-                    {{form.last_name.label}}*
-                    {{form.last_name}}
-                </div>
-                <div class="input-group">
-                    {{form.first_name.label}}*
-                    {{form.first_name}}
-                </div>
+            <div class="inputgroup">
+                <label for="">{{form.last_name.label}}*</label>
+                {{form.last_name}}
             </div>
-            <div class="input-group input-group_icon" id="email-input-group">
-                {{form.email.label}}*
+            <div class="inputgroup">
+                <label for="">{{form.first_name.label}}*</label>
+                {{form.first_name}}
+            </div>
+            <div class="inputgroup inputgroup_icon" id="email-input-group">
+                <label for="">{{form.email.label}}*</label>
                 {{form.email}}
                 <i class="icon-mail"></i>
             </div>
-            <div class="input-group input-group_icon">
-                {{form.password1.label}}*
+            <div class="inputgroup inputgroup_icon">
+               <label for="">{{form.password1.label}}*</label>
                 {{form.password1}}
                 <i class="icon-lock"></i>
             </div>
-            <div class="input-group input-group_icon">
-                {{form.password2.label}}*
+            <div class="inputgroup inputgroup_icon">
+                <label for="">{{form.password2.label}}*</label>
                 {{form.password2}}
                 <i class="icon-lock"></i>
             </div>
-            <div class="btn-list">
-                <button class="btn btn_icon" type="submit">
-                    <i class="icon-edit"></i>
-                    <div>Зарегистрироваться</div>
+            <div class="inputgroup">
+                <p>* Отмеченные поля, обязательные для заполнения</p>
+            </div>
+            <div class="inputgroup">
+                <button class="btn" type="submit">
+                    <i class="icon-edit"></i> Зарегистрироваться
                 </button>
             </div>
-            <div class="form__notes">
-                * Отмеченные поля, обязательные для заполнения
-            </div>
+            
         </form>
     </div>
 </form>

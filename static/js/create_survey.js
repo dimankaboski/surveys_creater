@@ -1,146 +1,110 @@
+$(".chosen-select").each(function () {
+    $(this).chosen({});
+});
+
 let el_id = 1;
 
 $('#add_element').on('click', function(){
     html = `
     <div class="element">
-        <input type="hidden" name="el_id_${el_id}" value="${el_id}">
-        <label for="el_name">Вопрос</label>
-        <input type="text" name="el_name_${el_id}" id="el_name_${el_id}">
-        <select name="el_type_${el_id}" class="" id="" onchange="changeElement(event)">
-            <option value="one_in_list">Один из списка</option>
-            <option value="many_in_list">Неколько из списка</option>
-            <option value="string">Строка</option>
-            <option value="textarea" selected>Текст с абзацами</option>
-            <option value="range">Шкала</option>
-        </select>
-        <textarea name="el_text_${el_id}" id="" cols="70" rows="5"></textarea>
-        <label for="">Обязательное поле</label>
-        <input type="checkbox" name="el_required_${el_id}" value="1">
+        <div class="form">
+            <input type="hidden" name="el_id_${el_id}" value="${el_id}" id="el_id_${el_id}">
+            <div class="inputrow">
+                <div class="inputgroup">
+                    <label for="el_name">Вопрос</label>
+                    <input type="text" name="el_name_${el_id}" id="el_name_${el_id}">
+                </div>
+                <div class="inputgroup">
+                    <label for="el_name">Тип</label>
+                    <select name="el_type_${el_id}" id="el_type_${el_id}" class="chosen-select" onchange="changeElement(event)">
+                        <option value="one_in_list">Один из списка</option>
+                        <option value="many_in_list">Неколько из списка</option>
+                        <option value="string">Строка</option>
+                        <option value="textarea" selected>Текст с абзацами</option>
+                        <option value="range">Шкала</option>
+                    </select>
+                </div>
+            </div>
+            <div class="variants"></div>
+            <div class="inputgroup">
+                <input type="checkbox" class="checkbox" name="el_required_${el_id}" value="1" id="el_required_${el_id}">
+                <label for="el_required_${el_id}">Обязательное поле</label>
+            </div>
+        </div>
     </div>
     `
     $('.elements').append(html);
+    $(`#el_type_${el_id}`).chosen({});
+
     el_id += 1;
 })
 
 function set_one_in_list_element(id, element, name) {
     html = `
-        <div class="element">
-            <input type="hidden" name="el_id_${id}" value="${id}">
-            <label for="el_name">Вопрос</label>
-            <input type="text" name="el_name_${id}" id="el_name_${id}" value="${name}">
-            <select name="el_type_${id}" class="" id="" onchange="changeElement(event)">
-                <option value="one_in_list" selected>Один из списка</option>
-                <option value="many_in_list">Неколько из списка</option>
-                <option value="string">Строка</option>
-                <option value="textarea">Текст с абзацами</option>
-                <option value="range">Шкала</option>
-            </select>
-            <textarea name="el_text_${id}" id="" cols="70" rows="5"></textarea>
-            <label for="">Обязательное поле</label>
-            <input type="checkbox" name="el_required_${id}" value="1">
-        </div>
-    `
-    $(element).html(html);
+        <label for="el_text_${id}">Варианты ответов</label>
+        <textarea name="el_text_${id}" id="" cols="70" rows="5"></textarea>
+    `;
+
+    $(`#el_id_${id}`).val(id);
+    $(element).find('.variants').html(html);
 }
 
 function set_many_in_list_element(id, element, name) {
     html = `
-        <div class="element">
-            <input type="hidden" name="el_id_${id}" value="${id}">
-            <label for="el_name">Вопрос</label>
-            <input type="text" name="el_name_${id}" id="el_name_${id}" value="${name}">
-            <select name="el_type_${id}" class="" id="" onchange="changeElement(event)">
-                <option value="one_in_list">Один из списка</option>
-                <option value="many_in_list" selected>Неколько из списка</option>
-                <option value="string">Строка</option>
-                <option value="textarea">Текст с абзацами</option>
-                <option value="range">Шкала</option>
-            </select>
-            <textarea name="el_text_${id}" id="" cols="70" rows="5"></textarea>
-            <label for="">Обязательное поле</label>
-            <input type="checkbox" name="el_required_${id}" value="1">
-        </div>
+        <label for="el_text_${id}">Варианты ответов</label>
+        <textarea name="el_text_${id}" id="" cols="70" rows="5"></textarea>
     `
-    $(element).html(html);
+    $(`#el_id_${id}`).val(id);
+    $(element).find('.variants').html(html);
 }
 function set_string_element(id, element, name) {
-    html = `
-        <div class="element">
-            <input type="hidden" name="el_id_${id}" value="${id}">
-            <label for="el_name">Вопрос</label>
-            <input type="text" name="el_name_${id}" id="el_name_${id}" value="${name}">
-            <select name="el_type_${id}" class="" id="" onchange="changeElement(event)">
-                <option value="one_in_list">Один из списка</option>
-                <option value="many_in_list">Неколько из списка</option>
-                <option value="string" selected>Строка</option>
-                <option value="textarea">Текст с абзацами</option>
-                <option value="range">Шкала</option>
-            </select>
-            <label for="">Обязательное поле</label>
-            <input type="checkbox" name="el_required_${id}" value="1">
-        </div>
-    `
-    $(element).html(html);
+    html = ``;
+    $(`#el_id_${id}`).val(id);
+    $(element).find('.variants').html(html);
 }
 function set_textarea_element(id, element, name) {
-    html = `
-        <div class="element">
-            <input type="hidden" name="el_id_${id}" value="${id}">
-            <label for="el_name">Вопрос</label>
-            <input type="text" name="el_name_${id}" id="el_name_${id}" value="${name}">
-            <select name="el_type_${id}" class="" id="" onchange="changeElement(event)">
-                <option value="one_in_list">Один из списка</option>
-                <option value="many_in_list" selected>Неколько из списка</option>
-                <option value="string">Строка</option>
-                <option value="textarea" selected>Текст с абзацами</option>
-                <option value="range">Шкала</option>
-            </select>
-            <label for="">Обязательное поле</label>
-            <input type="checkbox" name="el_required_${id}" value="1">
-        </div>
-    `
-    $(element).html(html);
+    html = ``;
+    $(`#el_id_${id}`).val(id);
+    $(element).find('.variants').html(html);
 }
 function set_range_element(id, element, name) {
     html = `
-        <div class="element">
-            <input type="hidden" name="el_id_${id}" value="${id}">
-            <label for="el_name">Вопрос</label>
-            <input type="text" name="el_name_${id}" id="el_name_${id}" value="${name}">
-            <select name="el_type_${id}" id="" onchange="changeElement(event)">
-                <option value="one_in_list">Один из списка</option>
-                <option value="many_in_list" selected>Неколько из списка</option>
-                <option value="string">Строка</option>
-                <option value="textarea">Текст с абзацами</option>
-                <option value="range" selected>Шкала</option>
-            </select>
-            <select name="el_range_min_${id}">
-                <option value="0" selected>0</option>
-                <option value="1">1</option>
-            </select>
-            <select name="el_range_max_${id}">
-                <option value="2" selected>2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-            </select>
-            <label for="">Обязательное поле</label>
-            <input type="checkbox" name="el_required_${id}" value="1">
+        <div class="inputrow">
+            <div class="inputgroup">
+                <label>Минимальное</label>
+                <select name="el_range_min_${id}" class="chosen-select" id="el_range_min_${id}">
+                    <option value="0" selected>0</option>
+                    <option value="1">1</option>
+                </select>
+            </div>    
+            <div class="inputgroup">
+                <label>Максимальное</label>
+                <select name="el_range_max_${id}" class="chosen-select" id="el_range_max_${id}">
+                    <option value="2" selected>2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+            </div>
         </div>
     `
-    $(element).html(html);
+    $(`#el_id_${id}`).val(id);
+    $(element).find('.variants').html(html);
+
+    $(`#el_range_min_${id}`).chosen({});
+    $(`#el_range_max_${id}`).chosen({});
 }
 
 function changeElement(e) {
     
     let target = $(e.target)
     let selected_type = target.val()
-    let element_block = target.parent()
+    let element_block = target.parent().parent().parent();
     let element_id = element_block.find(':input').val()
     let element_name = element_block.find(`:input[name=el_name_${element_id}]`).val()
     if (selected_type == 'one_in_list') {

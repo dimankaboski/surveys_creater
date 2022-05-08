@@ -1,11 +1,30 @@
 {% extends 'surveys/base.html' %}
 
 {% block content %}
-<h1>Login</h1>
-<form action="" method="post">
-    {% csrf_token %}
-    <input type="text" name="email"><br>
-    <input type="password" name="password"><br>
-    <button>Login</button>
-</form>
+<div class="section">
+    <div class="container">
+        <h1>Вход в сервис создания опросов</h1>
+    </div>
+</div>
+<div class="section">
+    <div class="container">
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="inputgroup">
+                <label for="">Ваш электронный адрес</label>
+                <input type="text" name="email">
+            </div>
+            <div class="inputgroup">
+                <label for="">Пароль</label>
+                <input type="password" name="password">
+            </div>
+            <div class="inputgroup">
+                <button class="btn"><i class="icon-log-in"></i> Вход</button>
+            </div>
+            <div class="inputgroup">
+                <p>У вас еще нет аккаунта? <a href="{% url 'auth:signup' %}">Пройдите регистрацию</a></p>
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}

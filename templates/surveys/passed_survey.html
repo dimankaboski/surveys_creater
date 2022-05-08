@@ -1,13 +1,29 @@
 {% extends 'surveys/base.html' %}
 
 {% block content %}
-<h1>Опрос #{{object.survey.id}}</h1>
-<h4>Заполнен: {{object.get_user}}</h4>
-<p>{{object.created_at}}</p>
-<p>{{object.survey.name}}</p>
-<p>{{object.survey.description}}</p>
-{% for el in object.elementvalue_set.all %}
-    <b>{{el.element.name}}</b>
-    {{el.value}} <br>
-{% endfor %}
+<div class="section">
+    <div class="container">
+        <h1>Опрос #{{object.survey.id}}</h1>
+        <h4>Заполнен: {{object.get_user}}</h4>
+        <p>{{object.created_at}}</p>
+        <p>{{object.survey.name}}</p>
+        <p>{{object.survey.description}}</p>
+    </div>
+</div>
+<div class="section">
+    <div class="container">
+        <div class="form">
+            <div class="form__header">Ответ</div>
+            {% for el in object.elementvalue_set.all %}
+                <div class="inputgroup">
+                    <label for="">{{el.element.name}}</label>
+                    <div class="answer">
+                        {{el.value}}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
 {% endblock %}

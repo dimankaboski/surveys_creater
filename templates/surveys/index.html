@@ -1,14 +1,38 @@
 {% extends 'surveys/base.html' %}
 
 {% block content %}
-<h1>Index page</h1>
-<h4>Hello, {{request.user.email}}</h4>
-<a href="{% url 'surveys:create_survey' %}">Создать опрос</a>
-<h4>Ваши опросы</h4>
-{% for survey in surveys %}
-<h5>Опрос #{{survey.id}}</h5>
-<p>{{survey.name}}</p>
-<p>Пройти по ссылке: <a href="{% url 'surveys:survey_passing_by_url' survey.uuid %}">Тык</a> </p>
-<p>Статистика: <a href="{% url 'surveys:survey_statistic' survey.pk %}">Тут</a> </p>
-{% endfor %}
+<div class="section">
+    <div class="container">
+        <h1>Добро пожаловать, {{request.user.first_name}}</h1>
+        <a class="btn" href="{% url 'surveys:create_survey' %}"><i class="icon-file-plus"></i> Создать опрос</a>
+    </div>
+</div>
+<div class="section">
+    <div class="container">
+        <div class="form">
+            <div class="form__header">
+                Ваши опросы
+            </div>
+            {% if surveys %}
+                {% for survey in surveys %}
+                    <div class="survey">
+                        <div class="survey__id">
+                            Опрос #{{survey.id}}
+                        </div>
+                        <div class="survey__name">
+                            {{survey.name}}
+                        </div>
+                        <div class="survey__link">
+                            <a class="btn" href="{% url 'surveys:survey_passing_by_url' survey.uuid %}"><icon class="icon-arrow-right"></icon> Ссылка</a>
+                            <a class="btn" href="{% url 'surveys:survey_statistic' survey.pk %}"><i class="icon-pie-chart"></i> Статистика</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+            <p>У вас еще нет созданных опросов. <a href="{% url 'surveys:create_survey' %}">Создать опрос?</a></p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
 {% endblock %}

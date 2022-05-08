@@ -2,40 +2,68 @@
 {% load static %}
 
 {% block content %}
-<h1>Create survey</h1>
-<h4>Hello, {{request.user.email}}</h4>
-
-<form action="" method="post" id="survey_form">
-    {% csrf_token %}
-    <label for="">Название</label> <br>
-    <input type="text" name="name"> <br>
-    <label for="">Описание</label> <br>
-    <textarea name="text" id="" cols="70" rows="5"></textarea>
-
-<div class="elements">
-    <div class="element">
-        <input type="hidden" name="el_id_0" value="0">
-        <label for="el_name">Вопрос</label>
-        <input type="text" name="el_name_0" id="">
-        <select name="el_type_0" class="" id="" onchange="changeElement(event)">
-            <option value="one_in_list">Один из списка</option>
-            <option value="many_in_list">Неколько из списка</option>
-            <option value="string" selected>Строка</option>
-            <option value="textarea">Текст с абзацами</option>
-            <option value="range">Шкала</option>
-        </select>
-        <label for="">Обязательное поле</label>
-        <input type="checkbox" name="el_required_0" value="1">
+<div class="section">
+    <div class="container">
+        <h1>Создание опроса</h1>
     </div>
 </div>
-</form>
-<button id="add_element">Добавить вопрос</button>
-<br>
-<button type="submit" form="survey_form">Сохранить</button>
+
+<div class="section">
+    <div class="container">
+        <form action="" method="post" id="survey_form">
+            {% csrf_token %}
+            <div class="inputgroup">
+                <label for="">Название опроса</label>
+                <input type="text" name="name">
+            </div>
+            <div class="inputgroup">
+                <label for="">Описание</label>
+                <textarea name="text" id="" cols="70" rows="5"></textarea>
+            </div>
+
+            <div class="elements">
+                <div class="element">                    
+                    <div class="form">
+                        <input type="hidden" name="el_id_0" value="0" id="el_id_0">
+                        <div class="inputrow">
+                            <div class="inputgroup">
+                                <label for="el_name">Вопрос</label>
+                                <input type="text" name="el_name_0" id="">
+                            </div>
+                            <div class="inputgroup">
+                                <label for="el_name">Тип</label>
+                                <select name="el_type_0" class="chosen-select" id="" onchange="changeElement(event)">
+                                    <option value="one_in_list">Один из списка</option>
+                                    <option value="many_in_list">Неколько из списка</option>
+                                    <option value="string" selected>Строка</option>
+                                    <option value="textarea">Текст с абзацами</option>
+                                    <option value="range">Шкала</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="variants inputgroup"></div>
+                        <div class="inputgroup">
+                            <input type="checkbox" name="el_required_0" id="el_required_0" value="1" class="checkbox">
+                            <label for="el_required_0">Обязательное поле</label>
+                        </div>
+                    </div>      
+                </div>
+            </div>
+        </form>
+        <div class="inputgroup">
+            <button class="btn" id="add_element"><i class="icon-plus"></i> Добавить вопрос</button>
+        </div>
+        <br>
+        <div class="inputgroup">
+            <button class="btn" type="submit" form="survey_form"> <i class="icon-save"></i> Сохранить опрос</button>
+        </div>
+    </div>
+</div>
 
 
 {% endblock %}
 
 {% block scripts %}
+<script src="{% static 'js/chosen.jquery.min.js' %}"></script>
 <script src="{% static 'js/create_survey.js' %}"></script>
 {% endblock %}
