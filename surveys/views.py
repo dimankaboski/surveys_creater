@@ -134,6 +134,16 @@ class SurveyStatistic(DetailView):
     template_name = 'surveys/statistic.html'
     model = Survey
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filled_last'] = self.get_object().filledsurvey_set.last()
+        return context
+
+
+class SurveyStatisticFilled(DetailView):
+    template_name = 'surveys/statistic_filled.html'
+    model = Survey
+
 
 class PassedSurveyDetail(DetailView):
     template_name = 'surveys/passed_survey.html'

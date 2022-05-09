@@ -27,6 +27,8 @@ class Survey(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Created at', null=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def get_chosen_elements(self):
+        return self.element_set.filter(type__in=[Element.TYPE.MANY_IN_MANY, Element.TYPE.ONE_IN_MANY])
 
 class Element(models.Model):
     """

@@ -1,0 +1,38 @@
+{% extends 'surveys/base.html' %}
+
+{% load static main %}
+
+{% block content %}
+<div class="section">
+    <div class="container">
+        <h1>Опрос "{{object.name}}"</h1>
+        <br>
+        <p>{{object.description}}</p>
+    </div>
+</div>
+
+<div class="section">
+    <div class="container">
+        <div class="form">
+            <div class="form__header">Ответы</div>
+            {% for filled in object.filledsurvey_set.all %}
+            <div class="survey">
+                <div class="survey__id">
+                    Ответ #{{forloop.counter}}
+                </div>
+                <div class="survey__name">
+                    {{filled.get_user}}
+                </div>
+                <div class="survey__name">
+                    {{filled.created_at}}
+                </div>
+                <div class="survey__link">
+                    <a class="btn" href="{% url 'surveys:passed_survey' filled.id %}"><i class="icon-eye"></i>
+                        Посмотреть</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

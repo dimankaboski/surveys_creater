@@ -390,6 +390,13 @@ label {
 .form__header {
     margin-bottom: 30px;
     font-weight: bold;
+    position: relative;
+}
+
+.form__header__ans_count {
+    position: absolute;
+    right: 0;
+    top: 0;
 }
 
 .surv_require {
@@ -437,6 +444,22 @@ label {
 .survey__name {
     flex: 1;
     margin: 0 10px;
+}
+
+.survey__percents {
+    width: 200px;
+    height: 6px;
+    background: #f1f1f1;
+    position: relative;
+}
+
+.survey__percents__percents {
+    display: inline-block;
+    height: 6px;
+    background: #006699;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .answer {

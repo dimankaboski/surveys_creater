@@ -1,36 +1,72 @@
 {% extends 'surveys/base.html' %}
 
+{% load static main %}
+
 {% block content %}
 <div class="section">
     <div class="container">
         <h1>Опрос "{{object.name}}"</h1>
         <br>
         <p>{{object.description}}</p>
+        <p>Общее количество ответов: {{object.filledsurvey_set.count }}</p>
     </div>
 </div>
 
 <div class="section">
     <div class="container">
         <div class="form">
-            <div class="form__header">Ответы</div>
-            {% for filled in object.filledsurvey_set.all %}
+            {% if filled_last %}
+            <div class="form__header">Последний ответ <a href="{% url 'surveys:survey_statistic_filled' object.id %}">(Посмотреть все)</a></div>
+
             <div class="survey">
                 <div class="survey__id">
-                    Ответ #{{forloop.counter}}
+                    Ответ #1
                 </div>
                 <div class="survey__name">
-                    {{filled.get_user}}
+                    {{filled_last.get_user}}
                 </div>
                 <div class="survey__name">
-                    {{filled.created_at}}
+                    {{filled_last.created_at}}
                 </div>
                 <div class="survey__link">
-                    <a class="btn" href="{% url 'surveys:passed_survey' filled.id %}"><i class="icon-eye"></i>
+                    <a class="btn" href="{% url 'surveys:passed_survey' filled_last.id %}"><i class="icon-eye"></i>
                         Посмотреть</a>
+                </div>
+            </div>
+            {% else %}
+            <div class="form__header">Опрос еще не проходили</div>
+            {% endif %}
+        </div>
+        {% for el in object.get_chosen_elements %}
+        {% get_el_response_count el object as count_filled %}
+        <div class="form">
+            <div class="form__header">
+                Вопрос: {{el.name}}
+                <div class="form__header__ans_count">
+                    {{count_filled}}
+                </div>
+            </div>
+            {% for resp in el.get_text_values %}
+            {% get_resp_statistic resp el object as stat %}
+            <div class="survey">
+                <div class="survey__id">
+                    {{stat.resp_percent}} %
+                </div>
+                <div class="survey__name">
+                    {{resp}}
+                </div>
+                <div class="survey__id">
+                    {{stat.resp_count}}
+                </div>
+                <div class="survey__percents">
+                    <div class="survey__percents__percents" style="width: {{stat.resp_percent}}%">
+                        
+                    </div>
                 </div>
             </div>
             {% endfor %}
         </div>
+        {% endfor %}
     </div>
 </div>
 {% endblock %}
