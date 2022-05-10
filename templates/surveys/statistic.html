@@ -43,7 +43,21 @@
             <div class="form__header">
                 Вопрос: {{el.name}}
                 <div class="form__header__ans_count">
-                    {{count_filled}}
+                    Ответов: {{count_filled}}
+                </div>
+            </div>
+            <div class="survey" style="font-weight: bold;">
+                <div class="survey__id">
+                    %
+                </div>
+                <div class="survey__name">
+                    Вариант
+                </div>
+                <div class="survey__id">
+                    Кол-во ответов
+                </div>
+                <div class="survey__name">
+                    Шкала
                 </div>
             </div>
             {% for resp in el.get_text_values %}

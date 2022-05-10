@@ -42,7 +42,12 @@ $('#add_element').on('click', function(){
 function set_one_in_list_element(id, element, name) {
     html = `
         <label for="el_text_${id}">Варианты ответов</label>
-        <textarea name="el_text_${id}" id="" cols="70" rows="5"></textarea>
+        <input type="hidden" data-id="textarea" name="el_text_${id}">
+        <div class="radio__type__variant">
+            <i class="icon-circle variant__icon"></i>
+            <input type="text" name="variant_text" placeholder="Ваш вариант">
+        </div>
+        <div class="btn add_variant radios"><i class="icon-plus"></i> Добавить вариант</div>
     `;
 
     $(`#el_id_${id}`).val(id);
@@ -52,7 +57,12 @@ function set_one_in_list_element(id, element, name) {
 function set_many_in_list_element(id, element, name) {
     html = `
         <label for="el_text_${id}">Варианты ответов</label>
-        <textarea name="el_text_${id}" id="" cols="70" rows="5"></textarea>
+        <input type="hidden" data-id="textarea" name="el_text_${id}">
+        <div class="check__type__variant">
+            <i class="icon-square variant__icon"></i>
+            <input type="text" name="variant_text" placeholder="Ваш вариант">
+        </div>
+        <div class="btn add_variant checks"><i class="icon-plus"></i> Добавить вариант</div>
     `
     $(`#el_id_${id}`).val(id);
     $(element).find('.variants').html(html);
@@ -100,6 +110,22 @@ function set_range_element(id, element, name) {
     $(`#el_range_max_${id}`).chosen({});
 }
 
+function addRadioVariantElement() {
+    html = `<div class="radio__type__variant">
+                <i class="icon-circle variant__icon"></i>
+                <input type="text" name="variant_text" placeholder="Ваш вариант">
+            </div>`
+    return html;
+}
+
+function addCheckVariantElement() {
+    html = `<div class="check__type__variant">
+                <i class="icon-square variant__icon"></i>
+                <input type="text" name="variant_text" placeholder="Ваш вариант">
+            </div>`
+    return html;
+}
+
 function changeElement(e) {
     
     let target = $(e.target)
@@ -122,4 +148,33 @@ function changeElement(e) {
     if (selected_type == 'range') {
         set_range_element(element_id, element_block, element_name)
     }
+    $('.elements').find('.add_variant.radios').on('click', function(){
+        $(this).before(addRadioVariantElement());
+    })
+    $('.elements').find('.add_variant.checks').on('click', function(){
+        $(this).before(addCheckVariantElement());
+    })
 }
+
+$('form').on('submit', function(){
+    $('.element').each(function(i) {
+         if ($(this).find('.radio__type__variant').length > 0) {
+             var text_el = $(this).find('input[type="hidden"]')[1]
+             var arr = [];
+             $(this).find('.variants .radio__type__variant').each(function(j) {
+                 var val = $(this).find('input[name="variant_text"]').val()
+                 arr.push(val)
+             })
+             $(text_el).val(arr.join('\n'))
+         }
+         if ($(this).find('.check__type__variant').length > 0) {
+            var text_el = $(this).find('input[type="hidden"]')[1]
+            var arr = [];
+            $(this).find('.variants .check__type__variant').each(function(j) {
+                var val = $(this).find('input[name="variant_text"]').val()
+                arr.push(val)
+            })
+            $(text_el).val(arr.join('\n'))
+        }
+    })
+})

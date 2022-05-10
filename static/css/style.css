@@ -56,7 +56,10 @@ input, select {
     transition: all 0.1s ease;
     font-size: 1em;
 }
-
+.btn.add_variant {
+    padding: 5px 10px;
+    font-size: .8em;
+}
 .btn i {
     color: #fff !important;
 }
@@ -468,4 +471,26 @@ label {
     border-radius: 10px;
     box-shadow: 0 4px 24px rgb(85 118 202 / 10%);
     font-family: 'ubuntu';
+}
+
+.variants {
+    padding: 10px 0;
+}
+
+.radio__type__variant {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.check__type__variant {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.variant__icon {
+    font-size: 1.2em;
 }
