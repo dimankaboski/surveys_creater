@@ -37,6 +37,9 @@
             <div class="form__header">Опрос еще не проходили</div>
             {% endif %}
         </div>
+        {% if not object.get_chosen_elements %}
+        net
+        {% else %}
         {% for el in object.get_chosen_elements %}
         {% get_el_response_count el object as count_filled %}
         <div class="form">
@@ -81,6 +84,7 @@
             {% endfor %}
         </div>
         {% endfor %}
+        {% endif %}
     </div>
 </div>
 {% endblock %}

@@ -10,7 +10,7 @@
 
 <div class="section">
     <div class="container">
-        <form action="" method="post" id="survey_form">
+        <form action="" method="post" id="survey_form" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="inputgroup">
                 <label for="">Название опроса</label>
@@ -45,6 +45,7 @@
 
                         <div class="inputgroup">
                             <input type="checkbox" name="el_required_0" id="el_required_0" value="1" class="checkbox">
+                            <input type="file" name="el_file_0">
                             <label for="el_required_0">Обязательное поле</label>
                         </div>
                     </div>      

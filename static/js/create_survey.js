@@ -27,6 +27,7 @@ $('#add_element').on('click', function(){
             </div>
             <div class="variants"></div>
             <div class="inputgroup">
+                <input type="file" name="el_file_${el_id}">
                 <input type="checkbox" class="checkbox" name="el_required_${el_id}" value="1" id="el_required_${el_id}">
                 <label for="el_required_${el_id}">Обязательное поле</label>
             </div>

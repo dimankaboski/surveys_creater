@@ -47,6 +47,8 @@ class CreateSurvey(TemplateView):
                 element.required = True
             else:
                 element.required = False
+            if request.FILES.get(f'el_file_{prop}'):
+                element.file = request.FILES.get(f'el_file_{prop}')
             element.save()
             prop += 1
         

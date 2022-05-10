@@ -27,7 +27,8 @@ def get_resp_statistic(resp, el, survey):
             for many_resp in user_resp.value.split('\n'):
                 if many_resp.replace('\r', '') == resp:
                     data['resp_count'] += 1
-    data['resp_percent'] = str(round(data['resp_count'] * 100 / filled.count(), 1)).replace(',', '.')
+    if filled.count() != 0:
+        data['resp_percent'] = str(round(data['resp_count'] * 100 / filled.count(), 1)).replace(',', '.')
     return data
 
 @register.simple_tag()

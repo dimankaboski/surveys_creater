@@ -16,7 +16,7 @@
             <div class="inputgroup">
                 {% for prop in object.element_set.all %}
                     <label for="">
-                        {{prop.name}}
+                        {{prop.name}} {% if prop.file %} <a href="{{prop.file.url}}">(Открыть файл)</a> {% endif %}
                         {% if prop.required %}
                             <span class="surv_require">Обязательное поле</span>
                         {% endif %}
