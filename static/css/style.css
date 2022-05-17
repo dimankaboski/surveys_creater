@@ -494,3 +494,8 @@ label {
 .variant__icon {
     font-size: 1.2em;
 }
+
+.variant__delete {
+    color: red;
+    cursor: pointer;
+}

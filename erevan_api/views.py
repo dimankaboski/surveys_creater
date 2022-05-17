@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 from django.shortcuts import render
+
 from .models import *
 
 
@@ -25,6 +26,7 @@ def get_team_members(request):
         resp.append(member_json)
     return JsonResponse(resp, safe=False)
 
+
 def get_activities(request):
     resp = []
     members = Activity.objects.all()
@@ -37,6 +39,7 @@ def get_activities(request):
         resp.append(json)
     return JsonResponse(resp, safe=False)
 
+
 def get_header_description(request):
     members = HeaderDescription.objects.filter().last()
     resp = {
@@ -45,6 +48,7 @@ def get_header_description(request):
         'text': members.text.split('$$')
     }
     return JsonResponse(resp, safe=False)
+
 
 def get_cases(request):
     resp = []
@@ -57,6 +61,7 @@ def get_cases(request):
         }
         resp.append(json)
     return JsonResponse(resp, safe=False)
+
 
 def get_header_reasons(request):
     resp = []

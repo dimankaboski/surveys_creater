@@ -1,6 +1,6 @@
-from cgitb import lookup
 from django.shortcuts import redirect, render
 from django.views.generic import CreateView, TemplateView, ListView, DetailView, View, FormView, UpdateView
+
 from .models import Survey, Element, FilledSurvey, ElementValue
 
 
@@ -17,6 +17,7 @@ class IndexPage(TemplateView):
             return redirect('auth:login')
         return super().dispatch(request, *args, **kwargs)
 
+
 class CreateSurvey(TemplateView):
     template_name = 'surveys/create.html'
 
@@ -28,7 +29,6 @@ class CreateSurvey(TemplateView):
             created_by=request.user,
         )
         prop = 0
-        # raise Exception
         while data.get(f'el_id_{prop}'):
             element = Element.objects.create(
                 type=data.get(f'el_type_{prop}'),
@@ -51,13 +51,13 @@ class CreateSurvey(TemplateView):
                 element.file = request.FILES.get(f'el_file_{prop}')
             element.save()
             prop += 1
-        
         return redirect('surveys:index')
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             return redirect('auth:login')
         return super().dispatch(request, *args, **kwargs)
+
 
 class SurveyPublicOpened(DetailView):
     template_name = 'surveys/public.html'

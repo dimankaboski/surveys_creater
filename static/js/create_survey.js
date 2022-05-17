@@ -47,6 +47,7 @@ function set_one_in_list_element(id, element, name) {
         <div class="radio__type__variant">
             <i class="icon-circle variant__icon"></i>
             <input type="text" name="variant_text" placeholder="Ваш вариант">
+            <i class="icon-x variant__icon variant__delete"></i>
         </div>
         <div class="btn add_variant radios"><i class="icon-plus"></i> Добавить вариант</div>
     `;
@@ -62,6 +63,7 @@ function set_many_in_list_element(id, element, name) {
         <div class="check__type__variant">
             <i class="icon-square variant__icon"></i>
             <input type="text" name="variant_text" placeholder="Ваш вариант">
+            <i class="icon-x variant__icon variant__delete"></i>
         </div>
         <div class="btn add_variant checks"><i class="icon-plus"></i> Добавить вариант</div>
     `
@@ -115,6 +117,7 @@ function addRadioVariantElement() {
     html = `<div class="radio__type__variant">
                 <i class="icon-circle variant__icon"></i>
                 <input type="text" name="variant_text" placeholder="Ваш вариант">
+                <i class="icon-x variant__icon variant__delete"></i>
             </div>`
     return html;
 }
@@ -123,6 +126,7 @@ function addCheckVariantElement() {
     html = `<div class="check__type__variant">
                 <i class="icon-square variant__icon"></i>
                 <input type="text" name="variant_text" placeholder="Ваш вариант">
+                <i class="icon-x variant__icon variant__delete"></i>
             </div>`
     return html;
 }
@@ -151,10 +155,17 @@ function changeElement(e) {
     }
     $('.elements').find('.add_variant.radios').on('click', function(){
         $(this).before(addRadioVariantElement());
+        $('.variant__delete').on('click', function(){
+            $(this).parent().remove();
+        })
     })
     $('.elements').find('.add_variant.checks').on('click', function(){
         $(this).before(addCheckVariantElement());
+        $('.variant__delete').on('click', function(){
+            $(this).parent().remove();
+        })
     })
+
 }
 
 $('form').on('submit', function(){

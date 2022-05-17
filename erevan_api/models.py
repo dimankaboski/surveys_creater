@@ -1,3 +1,4 @@
+"""Тестовое API для сайта разработчиков"""
 from django.db import models
 
 
